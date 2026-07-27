@@ -1,0 +1,108 @@
+{% extends "base.html" %} {% import "partials/macros.html" as m %} {% block
+content %} {% include "partials/nav_rail.html" %}
+
+<main class="main">
+  <section id="hero" class="section hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow"><span class="cursor">&gt;</span> whoami</p>
+      <h1 class="hero-name">{{ profile.name }}</h1>
+      <p class="hero-title">{{ profile.title }}</p>
+      <p class="hero-summary">{{ profile.summary }}</p>
+
+      <div class="hero-meta">
+        <span class="hero-meta-item">{{ profile.location }}</span>
+        <span class="hero-meta-item">{{ profile.email }}</span>
+        <span class="hero-meta-item">{{ profile.phone }}</span>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#experience" class="btn btn-primary">View experience</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span></span>
+      scroll
+    </div>
+  </section>
+
+  <section id="strengths" class="section">
+    {{ m.section_header("02", "Core strengths") }}
+    <div class="strength-grid">
+      {% for item in strengths %} {{ m.strength_card(item) }} {% endfor %}
+    </div>
+  </section>
+
+  <section id="skills" class="section">
+    {{ m.section_header("03", "Skills") }}
+    <div class="skills-groups">
+      {% for group in skill_groups %}
+      <div class="skill-group">
+        <h3 class="skill-group-label">{{ group.label }}</h3>
+        <div class="chip-row">
+          {% for skill in group.skills %} {{ m.skill_chip(skill) }} {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="experience" class="section">
+    {{ m.section_header("04", "Work experience") }}
+    <div class="commit-log">
+      {% for job in experience %} {{ m.timeline_item(job, loop.last) }} {%
+      endfor %}
+    </div>
+  </section>
+
+  <section id="education" class="section">
+    {{ m.section_header("05", "Education") }}
+    <div class="edu-list">
+      {% for edu in education %} {{ m.education_card(edu) }} {% endfor %}
+    </div>
+
+    <h3 class="subsection-label">Achievements</h3>
+    <div class="ach-grid">
+      {% for ach in achievements %} {{ m.achievement_item(ach) }} {% endfor %}
+    </div>
+  </section>
+
+  <section id="certifications" class="section">
+    {{ m.section_header("06", "Certifications") }}
+    <div class="cert-list">
+      {% for cert in certifications %} {{ m.cert_item(cert) }} {% endfor %}
+    </div>
+  </section>
+
+  <section id="contact" class="section section--contact">
+    {{ m.section_header("07", "Get in touch") }}
+    <p class="contact-lede">
+      Open to Python / backend roles and interesting data problems. Reach out
+      any time.
+    </p>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:{{ profile.email }}">
+        <span class="contact-label">Email</span>
+        <span class="contact-value">{{ profile.email }}</span>
+      </a>
+      <a class="contact-card" href="tel:{{ profile.phone|replace(' ', '') }}">
+        <span class="contact-label">Phone</span>
+        <span class="contact-value">{{ profile.phone }}</span>
+      </a>
+      <a class="contact-card" href="{{ profile.linkedin }}" target="_blank">
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-value">{{ profile.linkedinid }}</span>
+      </a>
+      <div class="contact-card contact-card--static">
+        <span class="contact-label">Location</span>
+        <span class="contact-value">{{ profile.location }}</span>
+      </div>
+    </div>
+    <footer class="footer">
+      <span>&copy; <span id="year"></span> {{ profile.name }}</span>
+      <span class="footer-dot">·</span>
+      <span>Built with Flask</span>
+    </footer>
+  </section>
+</main>
+{% endblock %}

@@ -1,0 +1,94 @@
+{# --------------------------------------------------------------------
+   Reusable render macros. Every repeating visual pattern on the site
+   (a skill chip, a timeline entry, a cert row...) is defined exactly
+   once here and called wherever that shape is needed.
+-------------------------------------------------------------------- #}
+
+{% macro section_header(eyebrow, title) %}
+<div class="section-header">
+  <span class="eyebrow">{{ eyebrow }}</span>
+  <h2 class="section-title">{{ title }}</h2>
+</div>
+{% endmacro %}
+
+
+{% macro skill_chip(name) %}
+<span class="chip">{{ name }}</span>
+{% endmacro %}
+
+
+{% macro strength_icon(name) %}
+{% if name == "layers" %}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg>
+{% elif name == "terminal" %}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v14H4z"/><path d="m7 10 3 2.5L7 15M12 15h5"/></svg>
+{% elif name == "git-branch" %}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="9" r="2"/><path d="M6 8v8M6 8c0 4 4 3 8 3.5 2 0 4-1 4-2.5"/></svg>
+{% elif name == "users" %}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.2c2.5.4 4.5 2.6 4.5 5.3"/></svg>
+{% endif %}
+{% endmacro %}
+
+
+{% macro strength_card(item) %}
+<div class="strength-card">
+  <div class="strength-icon" aria-hidden="true">{{ strength_icon(item.icon) }}</div>
+  <h3 class="strength-title">{{ item.title }}</h3>
+  <p class="strength-desc">{{ item.description }}</p>
+</div>
+{% endmacro %}
+
+
+{% macro timeline_item(job, is_last) %}
+<article class="commit{% if job.current %} commit--head{% endif %}">
+  <div class="commit-rail">
+    <span class="commit-dot"></span>
+    {% if not is_last %}<span class="commit-line"></span>{% endif %}
+  </div>
+  <div class="commit-body">
+    <div class="commit-meta">
+      <code class="commit-period">{{ job.period }}</code>
+      {% if job.current %}<span class="commit-badge">current</span>{% endif %}
+    </div>
+    <h3 class="commit-role">{{ job.role }}<span class="commit-team"> · {{ job.team }}</span></h3>
+    <p class="commit-company">{{ job.company }} — {{ job.location }}</p>
+    <ul class="commit-bullets">
+      {% for bullet in job.bullets %}
+      <li>{{ bullet }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</article>
+{% endmacro %}
+
+
+{% macro education_card(edu) %}
+<div class="edu-card">
+  <div class="edu-mark" aria-hidden="true"></div>
+  <div>
+    <code class="edu-period">{{ edu.period }}</code>
+    <h3 class="edu-degree">{{ edu.degree }}</h3>
+    <p class="edu-institution">{{ edu.institution }} — {{ edu.location }}</p>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro cert_item(cert) %}
+<div class="cert-row">
+  <span class="cert-check" aria-hidden="true"></span>
+  <div>
+    <p class="cert-name">{{ cert.name }}</p>
+    <p class="cert-issuer">{{ cert.issuer }}</p>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro achievement_item(ach) %}
+<div class="ach-card">
+  <code class="ach-period">{{ ach.period }}</code>
+  <h3 class="ach-title">{{ ach.title }}</h3>
+  <p class="ach-desc">{{ ach.description }}</p>
+</div>
+{% endmacro %}
