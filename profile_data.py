@@ -41,7 +41,7 @@ SKILL_GROUPS = [
     },
     {
         "label": "AI-Assisted Development",
-        "skills": ["Prompt Engineering"],
+        "skills": ["Prompt Engineering", "Gemini CLI"],
     },
 ]
 
