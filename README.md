@@ -15,6 +15,8 @@ python app.py
 
 Then open **http://127.0.0.1:5000** in your browser.
 
+Alternatively, the site is deployed and live on Vercel at https://portfolio-snowy-theta-91.vercel.app/. Vercel is connected to this repository and automatically deploys updates pushed here.
+
 ## Structure
 
 ```
